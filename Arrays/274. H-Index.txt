@@ -1,0 +1,30 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        reverseArray(citations);
+
+        for(int i =0;i<citations.length;i++){
+            if(citations[i]<i+1){
+                return i;
+            }
+        }
+        return citations.length;
+
+    }
+          public static void reverseArray(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start < end) {
+            // Swap elements at start and end indices
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+
+            // Move indices toward the center
+            start++;
+            end--;
+        }
+          }
+    
+}
