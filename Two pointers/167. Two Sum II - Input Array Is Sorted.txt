@@ -1,0 +1,22 @@
+ class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+         int n = numbers.length;
+        int[] arr = new int[2]; // Corrected to an array of size 2
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (numbers[i] + numbers[j] == target) {
+                    arr[0] = i+1;
+                    arr[1] = j+1;
+                    return arr;
+                }
+            }
+        }
+
+        // If no solution is found, return an array with -1 values or handle it based on your needs.
+        return new int[]{-1, -1};
+    }
+    }
+
+
+    

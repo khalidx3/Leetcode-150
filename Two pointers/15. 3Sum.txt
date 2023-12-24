@@ -1,0 +1,38 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums); // Step 1: Sort the array
+
+        for (int i = 0; i < nums.length - 2; i++) { // Step 2: Iterate through the array
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue; // Skip duplicate elements
+            }
+
+            int left = i + 1, right = nums.length - 1; // Step 3: Initialize two pointers
+
+            while (left < right) { // Step 4: Check for triplets
+                int currentSum = nums[i] + nums[left] + nums[right];
+
+                if (currentSum == 0) { // Case: Triplet found
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++; // Skip duplicate elements
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--; // Skip duplicate elements
+                    }
+
+                    left++;
+                    right--; // Move pointers
+                } else if (currentSum < 0) { // Case: Adjust pointers based on current sum
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return result; // Step 5: Return the result
+           }
+}
