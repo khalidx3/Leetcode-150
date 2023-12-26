@@ -1,0 +1,26 @@
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int i = 0;            // Start of the subarray
+        int j = 0;            // End of the subarray
+        int min = Integer.MAX_VALUE; // Minimum subarray length found
+        int sum = 0;          // Sum of the current subarray
+
+        while (j < nums.length) {
+            sum += nums[j];    // Extend the subarray
+            if (sum >= target) {
+                // Minimize the subarray length
+                while (sum >= target) {
+                    min = Math.min(min, j - i + 1); // Update the minimum length
+                    sum -= nums[i]; // Shrink the subarray
+                    i++;            // Move the start pointer
+                }
+            }
+            j++;                // Move the end pointer
+        }
+
+        if (min == Integer.MAX_VALUE)
+            return 0;           // No subarray found
+        else
+            return min;         // Return the minimum subarray length
+    }
+}

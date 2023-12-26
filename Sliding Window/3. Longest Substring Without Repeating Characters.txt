@@ -1,0 +1,23 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+    int n = s.length();     // Length of the input string
+    int maxLength = 0;     // Length of the longest substring without repeating characters
+    int start = 0;               // Start pointer of the current substring
+    int end = 0;                 // End pointer of the current substring
+    HashSet<Character> charSet = new HashSet<>();  // Set to store unique characters
+
+    while (end < n) {            // Iterate through the string
+        if (!charSet.contains(s.charAt(end))) {  // If character is not in set
+            charSet.add(s.charAt(end));     // Add character to set
+            maxLength = Math.max(maxLength, end - start + 1);  // Update maxLength
+            end++;    // Move end pointer to extend substring
+        } else {
+            charSet.remove(s.charAt(start));  // Remove character at start pointer
+            start++;  // Move start pointer to shrink substring
+        }
+    }
+
+    return maxLength;  // Return length of the longest substring without repeating characters
+}
+
+}

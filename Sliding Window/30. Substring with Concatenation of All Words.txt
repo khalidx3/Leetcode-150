@@ -1,0 +1,46 @@
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        
+        List<Integer> ans = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        
+        // Count the occurrences of each word in the words array and store in the map
+        for (String word : words)
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        
+        int wLength = words[0].length();                // Length of each word
+        int tLength = words[0].length() * words.length; // Total length of all words concatenated
+        
+        int i = 0, j = 0; // Pointers for the sliding window
+        
+        while (j < s.length()) {
+            
+            // Expand the window until it reaches the total length of concatenated words
+            if (j - i + 1 < tLength)
+                j++;
+            
+            // Check if the window size is equal to the total length
+            else if (j - i + 1 == tLength) {
+                String sub = s.substring(i, j + 1); // Extract the current substring
+                
+                // Count occurrences of each word in the substring
+                Map<String, Integer> map2 = new HashMap<>();
+                int index = 0;
+                while (index < sub.length()) {
+                    String temp = sub.substring(index, index + wLength);
+                    map2.put(temp, map2.getOrDefault(temp, 0) + 1);
+                    index += wLength;
+                }
+                
+                // Compare the word frequency maps of the substring and the original words array
+                if (map.equals(map2))
+                    ans.add(i); // If equal, add the starting index of the substring to the result list
+                
+                i++; // Move the window by incrementing the start pointer
+                j++; // Move the window by incrementing the end pointer
+            }
+        }
+        return ans; // Return the list of starting indices
+    }
+}
+
